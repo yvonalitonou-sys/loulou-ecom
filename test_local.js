@@ -1,0 +1,1 @@
+﻿fetch("http://127.0.0.1:3000").then(r => console.log("NextJS:", r.status)).catch(e => console.log("NextJS error:", e.message));

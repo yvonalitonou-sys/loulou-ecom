@@ -1,0 +1,10 @@
+﻿# MEMO TECHNIQUE - WAO COD SYSTEM
+
+1. ENCODAGE (CRITIQUE) : NE JAMAIS utiliser PowerShell (Get-Content / Set-Content) pour modifier wao-cod-system.php. PowerShell détruit les emojis UTF-8 et provoque un double-encodage (transforme é en Ã©). Utiliser EXCLUSIVEMENT Node.js (fs.readFileSync / fs.writeFileSync avec utf8) ou l'outil replace_file_content.
+2. BOUTON COMMANDER : Le bouton d'ajout au panier a été remplacé par un bouton custom avec l'attribut 	ranslate="no" pour éviter que Google Chrome ne traduise "COMMANDER" en "COMMANDANT".
+3. ANIMATION : Une animation CSS @keyframes wao-pulse a été ajoutée sur .wao-floating-btn pour inciter au clic lors du scroll.
+4. AVIS CLIENTS : Les avis sont écrits en dur dans la fonction wao_home_reviews().
+5. WEBHOOK : La fonction wao_process_order() contient un wp_remote_post non-bloquant qui envoie la commande à http://127.0.0.1:3000/api/webhooks/woocommerce.
+
+6. BOM (BYTE ORDER MARK) : Lors d'une conversion ou d'une manipulation par scripts Node ou PowerShell, attention à ne jamais insérer de caractère BOM ï»¿ (invisible) au début du fichier (avant <?php). Ce caractère casse les requêtes AJAX car il pollue la réponse JSON de WordPress (wp_send_json_success), provoquant une erreur SyntaxError: Unexpected token dans etch().
+7. EMOJIS & CONVERSIONS : La conversion latin1 vers utf8 pour réparer les dégâts de PowerShell ne peut pas sauver les emojis (4 octets). Ils sont détruits (\ufffd). Si cela arrive, les emojis et les textes doivent être réinjectés manuellement.

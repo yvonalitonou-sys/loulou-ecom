@@ -1,0 +1,1 @@
+﻿fetch('http://127.0.0.1:3000/login').then(r => console.log("Login page status:", r.status)).catch(e => console.log(e.message));

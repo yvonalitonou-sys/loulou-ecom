@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Order {
+  id              String   @id @default(uuid())
+  orderNumber     String
+  storeName       String
+  customerName    String
+  phone           String
+  address         String?
+  productName     String
+  quantity        Int      @default(1)
+  totalPrice      Float
+  status          String   @default("PENDING") // PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, RETURNED, POSTPONED
+  driverId        String?
+  postponedReason String?
+  isPaidToAdmin   Boolean  @default(false)
+  deliveredAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  costPrice   Float    @default(0.0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  date        DateTime @default(now())
+  adSpend     Float    @default(0.0)
+  otherSpend  Float    @default(0.0)
+  notes       String?
+}
+
+model Driver {
+  id          String   @id @default(uuid())
+  name        String
+  phone       String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("CLOSER") // "ADMIN" or "CLOSER"
+  name      String?
+  sessions  Session[]
+  createdAt DateTime @default(now())
+}
+
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+}

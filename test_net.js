@@ -1,0 +1,2 @@
+﻿fetch("https://google.com").then(r => console.log("Google:", r.status)).catch(e => console.log("Google error"));
+fetch("https://api.telegram.org").then(r => console.log("Telegram:", r.status)).catch(e => console.log("Telegram error:", e.message));

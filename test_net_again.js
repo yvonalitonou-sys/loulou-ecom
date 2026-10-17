@@ -1,0 +1,1 @@
+﻿fetch("https://api.telegram.org").then(r => console.log("Telegram:", r.status)).catch(e => console.log("Telegram error:", e.message));
