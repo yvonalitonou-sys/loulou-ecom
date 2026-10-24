@@ -1,20 +1,9 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { LayoutDashboard, ShoppingBag, Truck, DollarSign, PackageOpen, LogOut, Users } from 'lucide-react';
 import { getSession } from '@/lib/session';
 import { logout } from './actions';
 import { MobileNavbar } from './components/MobileNavbar';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Loulou Ecom - ERP',
@@ -29,8 +18,8 @@ export default async function RootLayout({
   const user = await getSession();
 
   return (
-    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <body className="bg-slate-50 text-slate-900 flex flex-col md:flex-row min-h-screen">
+    <html lang="fr">
+      <body className="bg-slate-50 text-slate-900 flex flex-col md:flex-row min-h-screen font-sans">
         {user ? (
           <>
             <MobileNavbar user={user} />

@@ -71,7 +71,9 @@ export function StatusSelect({ orderId, currentStatus, currentReason }: { orderI
       </select>
       
       {isLocked && !isEditing && (
-        <Lock size={12} className="text-slate-400" title="Commande verrouillée" />
+        <span title="Commande verrouillée">
+          <Lock size={12} className="text-slate-400" />
+        </span>
       )}
 
       {isEditing && (
