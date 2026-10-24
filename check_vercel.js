@@ -1,0 +1,1 @@
+﻿fetch('https://loulou-ecom.vercel.app').then(r => console.log("Vercel App Status:", r.status)).catch(e => console.log("Error:", e.message));

@@ -1,4 +1,4 @@
-﻿'use server'
+'use server'
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
@@ -40,8 +40,12 @@ export async function authenticate(
       expires: session.expiresAt,
     });
 
-  } catch (error) {
-    return 'Une erreur est survenue.';
+  } catch (error: any) {
+    if (error?.message?.includes('NEXT_REDIRECT') || error?.digest?.includes('NEXT_REDIRECT')) {
+      throw error;
+    }
+    console.error("Login Auth Error:", error);
+    return 'Une erreur est survenue: ' + (error?.message || 'Erreur base de données');
   }
   
   redirect('/');
